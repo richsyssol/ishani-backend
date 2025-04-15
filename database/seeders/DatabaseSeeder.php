@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             GalleryImageSeeder::class,
             TestimonialSeeder::class,
+            ContactInformationSeeder::class
         ]);
         
 

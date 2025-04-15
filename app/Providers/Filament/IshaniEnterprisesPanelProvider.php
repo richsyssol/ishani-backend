@@ -24,8 +24,9 @@ class IshaniEnterprisesPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('ishani Enterprises')
-            ->path('ishani Enterprises')
+            ->id('ishaniEnterprises')
+            ->path('ishaniEnterprises')
+            ->brandName('Ishani Enterprises')
             ->login()
             ->colors([
                 'primary' => Color::Amber,

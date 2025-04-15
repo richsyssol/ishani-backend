@@ -7,6 +7,13 @@ use App\Http\Controllers\WhoWeAreController;
 use App\Http\Controllers\FactoryOutletController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ContactInformationController;
+use App\Http\Controllers\CompanyInformationController;
+
+
+use App\Models\Document;
+
 
 
 
@@ -17,5 +24,9 @@ Route::get('/api/factoryoutlet', [FactoryOutletController::class, 'index']);
 Route::get('/api/gallery', [GalleryController::class, 'index']);
 Route::get('/api/testimonials', [TestimonialController::class, 'index']);
 Route::get('/api/testimonials/featured', [TestimonialController::class, 'featured']);
-
+Route::get('/api/documents', [DocumentController::class, 'index']);
+Route::get('/api/documents/{document}/download', [DocumentController::class, 'download'])
+    ->name('documents.download');
+Route::get('/api/contact', [ContactInformationController::class, 'index']);
+Route::get('/api/companyinformation', action: [CompanyInformationController::class, 'index']);
 
