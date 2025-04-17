@@ -15,7 +15,7 @@ class ContactInformation extends Model
      * @var array
      */
     protected $table = "contact_informations";
-     protected $fillable = [
+    protected $fillable = [
         'tel_number',
         'mobile_number',
         'email',
@@ -35,5 +35,9 @@ class ContactInformation extends Model
         'outlet_address_line3',
         'outlet_address_line4',
         'outlet_address_line5',
+        'open_hours',
+        'by_road',
+        'parking',
+        'public_transport'
     ];
 }

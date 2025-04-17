@@ -10,6 +10,10 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ContactInformationController;
 use App\Http\Controllers\CompanyInformationController;
+use App\Http\Controllers\ShowroomGalleryController;
+use App\Http\Controllers\VisitRequestController;
+
+
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogPostController;
@@ -31,6 +35,8 @@ Route::get('/api/documents/{document}/download', [DocumentController::class, 'do
     ->name('documents.download');
 Route::get('/api/contact', [ContactInformationController::class, 'index']);
 Route::get('/api/companyinformation', action: [CompanyInformationController::class, 'index']);
+Route::get('/api/showroomgallery', ShowroomGalleryController::class);
+Route::post('/api/visit-requests', [VisitRequestController::class, 'store']);
 
 
 Route::get('/api/blog', [BlogController::class, 'index']);

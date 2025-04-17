@@ -5,9 +5,11 @@ namespace App\Filament\Resources;
 use App\Models\ContactInformation;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
 use App\Filament\Resources\ContactInformationResource\Pages;
 
 class ContactInformationResource extends Resource
@@ -44,7 +46,7 @@ class ContactInformationResource extends Resource
                             ->tel()
                             ->maxLength(255),
                     ])->columns(2),
-                
+
                 Forms\Components\Section::make('Corporate Office Address')
                     ->schema([
                         Forms\Components\TextInput::make('corporate_address_line1')
@@ -58,7 +60,7 @@ class ContactInformationResource extends Resource
                         Forms\Components\TextInput::make('corporate_address_line5')
                             ->label('Address Line 5'),
                     ]),
-                
+
                 Forms\Components\Section::make('Factory Address')
                     ->schema([
                         Forms\Components\TextInput::make('factory_address_line1')
@@ -72,7 +74,7 @@ class ContactInformationResource extends Resource
                         Forms\Components\TextInput::make('factory_address_line5')
                             ->label('Address Line 5'),
                     ]),
-                
+
                 Forms\Components\Section::make('Outlet Address')
                     ->schema([
                         Forms\Components\TextInput::make('outlet_address_line1')
@@ -86,6 +88,26 @@ class ContactInformationResource extends Resource
                         Forms\Components\TextInput::make('outlet_address_line5')
                             ->label('Address Line 5'),
                     ]),
+
+                Forms\Components\Section::make('Business Hours')
+                    ->schema([
+                        Textarea::make('open_hours')
+                            ->label('Open Hours')
+                            ->placeholder('Example: Monday-Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM')
+                            ->columnSpanFull()
+                    ]),
+                Forms\Components\Section::make('Transport Information')
+                    ->schema([
+                        Textarea::make('by_road')
+                            ->label('By Road Directions')
+                            ->columnSpanFull(),
+                        Textarea::make('parking')
+                            ->label('Parking Information')
+                            ->columnSpanFull(),
+                        Textarea::make('public_transport')
+                            ->label('Public Transport Options')
+                            ->columnSpanFull(),
+                    ])
             ]);
     }
 
@@ -98,6 +120,13 @@ class ContactInformationResource extends Resource
                 Tables\Columns\TextColumn::make('mobile_number')
                     ->label('Mobile'),
                 Tables\Columns\TextColumn::make('email'),
+                // TextColumn::make('how_to_reach_us')
+                //     ->label('Transport Info')
+                //     ->limit(30)
+                //     ->tooltip(function (TextColumn $column): ?string {
+                //         $state = $column->getState();
+                //         return $state;
+                //     }),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime(),
             ])

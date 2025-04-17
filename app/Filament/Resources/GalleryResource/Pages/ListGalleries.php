@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\CategoryResource\Pages;
+namespace App\Filament\Resources\GalleryResource\Pages;
 
-use App\Filament\Resources\CategoryResource;
+use App\Filament\Resources\GalleryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListCategories extends ListRecords
+class ListGalleries extends ListRecords
 {
-    protected static string $resource = CategoryResource::class;
+    protected static string $resource = GalleryResource::class;
 
     protected function getHeaderActions(): array
     {
