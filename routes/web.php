@@ -11,8 +11,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ContactInformationController;
 use App\Http\Controllers\CompanyInformationController;
 
-use App\Http\Controllers\Api\BlogController;
-use App\Http\Controllers\Api\BlogPostController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BlogPostController;
 
 use App\Models\Document;
 

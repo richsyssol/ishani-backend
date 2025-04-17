@@ -25,7 +25,8 @@ class BlogPostResource extends Resource
                 Forms\Components\TextInput::make('title')->required(),
                 Forms\Components\TextInput::make('slug')->required(),
                 Forms\Components\Textarea::make('excerpt')->required(),
-                Forms\Components\RichEditor::make('content')->required(),
+                Forms\Components\RichEditor::make('content')->required()
+                ->columnSpanFull(),
                 Forms\Components\Select::make('category')
                 ->options([
                     // Product Categories
