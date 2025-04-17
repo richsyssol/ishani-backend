@@ -11,6 +11,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ContactInformationController;
 use App\Http\Controllers\CompanyInformationController;
 
+use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\BlogPostController;
 
 use App\Models\Document;
 
@@ -30,3 +32,8 @@ Route::get('/api/documents/{document}/download', [DocumentController::class, 'do
 Route::get('/api/contact', [ContactInformationController::class, 'index']);
 Route::get('/api/companyinformation', action: [CompanyInformationController::class, 'index']);
 
+
+Route::get('/api/blog', [BlogController::class, 'index']);
+Route::get('/api/blog/recent', [BlogController::class, 'recent']);
+Route::get('/api/blog/category/{category}', [BlogController::class, 'byCategory']);
+Route::get('/api/blog/{slug}', [BlogPostController::class, 'show']);
