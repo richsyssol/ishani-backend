@@ -11,7 +11,10 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ContactInformationController;
 use App\Http\Controllers\CompanyInformationController;
 use App\Http\Controllers\ShowroomGalleryController;
-use App\Http\Controllers\VisitRequestController;
+use App\Http\Controllers\FranchiseInfoController;
+use App\Http\Controllers\FranchiseTestimonialController;
+
+
 
 
 
@@ -36,7 +39,8 @@ Route::get('/api/documents/{document}/download', [DocumentController::class, 'do
 Route::get('/api/contact', [ContactInformationController::class, 'index']);
 Route::get('/api/companyinformation', action: [CompanyInformationController::class, 'index']);
 Route::get('/api/showroomgallery', ShowroomGalleryController::class);
-Route::post('/api/visit-requests', [VisitRequestController::class, 'store']);
+Route::get('/api/franchise', [FranchiseInfoController::class, 'show']);
+Route::get('/api/testimonials', FranchiseTestimonialController::class);
 
 
 Route::get('/api/blog', [BlogController::class, 'index']);

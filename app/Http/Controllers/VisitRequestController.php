@@ -2,33 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\VisitRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class VisitRequestController extends Controller
 {
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        // Validate the request data
+        $validatedData = $request->validate([
             'full_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone_number' => 'required|string|max:20',
-            'preferred_date' => 'required|date',
-            'preferred_time' => 'required|string|max:255',
+            'preferred_date' => 'required|date|after_or_equal:today',
+            'preferred_time' => 'required|string|in:09:00-11:00,11:00-13:00,13:00-15:00,15:00-17:00',
             'special_requests' => 'nullable|string',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
+        // Create the visit request
+        $visitRequest = VisitRequest::create($validatedData);
 
-        $visitRequest = VisitRequest::create($request->all());
-
+        // Return JSON response
         return response()->json([
             'success' => true,
             'message' => 'Visit request submitted successfully',

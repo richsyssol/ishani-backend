@@ -8,5 +8,5 @@ return [
     'allowed_headers' => ['*'], // Allowed headers
     'exposed_headers' => [], // Headers to expose
     'max_age' => 0, // Max age for preflight requests
-    'supports_credentials' => false, // Allow credentials
+    'supports_credentials' => true, // Allow credentials
 ];
