@@ -26,23 +26,23 @@ class FranchiseTestimonialResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->required()
                             ->maxLength(255),
-                            
+
                         Forms\Components\TextInput::make('location')
                             ->required()
                             ->maxLength(255),
-                            
+
                         Forms\Components\Textarea::make('quote')
                             ->required()
                             ->columnSpanFull()
                             ->rows(4),
-                            
+
                         Forms\Components\Select::make('rating')
                             ->options([
-                                1 ,
-                                2 ,
-                                3, 
-                                4 ,
-                                5 ,
+                                1 => '1',
+                                2 => '2',
+                                3 => '3',
+                                4 => '4',
+                                5 => '5',
                             ])
                             ->default(5)
                             ->required(),
@@ -57,18 +57,18 @@ class FranchiseTestimonialResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                    
+
                 Tables\Columns\TextColumn::make('location')
                     ->searchable(),
-                    
+
                 Tables\Columns\TextColumn::make('quote')
                     ->limit(50)
                     ->searchable(),
-                    
+
                 Tables\Columns\TextColumn::make('rating')
-                ->numeric()  // Ensures it's treated as a number
-                ->sortable(),
-                    
+                    ->numeric()  // Ensures it's treated as a number
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),

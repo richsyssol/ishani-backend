@@ -15,6 +15,7 @@ class FranchiseInfo extends Model
         'benefits',
         'support',
         'expansion_cities',
+        'brochure_file' 
     ];
 
     /**

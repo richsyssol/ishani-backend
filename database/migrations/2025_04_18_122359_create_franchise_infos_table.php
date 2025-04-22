@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->text('benefits')->nullable();
             $table->text('support')->nullable();
             $table->json('expansion_cities')->nullable();
+            $table->string('brochure_file')->nullable();
             $table->timestamps();
         });
     }

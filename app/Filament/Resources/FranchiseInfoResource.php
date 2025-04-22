@@ -45,6 +45,17 @@ class FranchiseInfoResource extends Resource
                             ->placeholder('Add a city')
                             ->required(),
                     ]),
+                    Forms\Components\Section::make('Brochure')
+                ->schema([
+                    Forms\Components\FileUpload::make('brochure_file')
+                        ->label('Franchise Brochure')
+                        ->directory('franchise-brochures')
+                        ->acceptedFileTypes(['application/pdf'])
+                        ->downloadable()
+                        ->openable()
+                        ->helperText('Upload PDF brochure (max 5MB)')
+                        ->maxSize(5120),
+                ]),
             ]);
     }
 

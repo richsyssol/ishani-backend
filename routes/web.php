@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeroController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WhoWeAreController;
 use App\Http\Controllers\FactoryOutletController;
 use App\Http\Controllers\GalleryController;
@@ -13,6 +12,12 @@ use App\Http\Controllers\CompanyInformationController;
 use App\Http\Controllers\ShowroomGalleryController;
 use App\Http\Controllers\FranchiseInfoController;
 use App\Http\Controllers\FranchiseTestimonialController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Models\FranchiseInfo;
+use App\Http\Controllers\CustomerTestimonialController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\BenefitController;
 
 
 
@@ -27,7 +32,6 @@ use App\Models\Document;
 
 
 Route::get('/api/herocontent', [HeroController::class, 'index']);
-Route::get('/api/products', [ProductController::class, 'index']);
 Route::get('/api/whoweare', [WhoWeAreController::class, 'index']);
 Route::get('/api/factoryoutlet', [FactoryOutletController::class, 'index']);
 Route::get('/api/gallery', [GalleryController::class, 'index']);
@@ -41,6 +45,19 @@ Route::get('/api/companyinformation', action: [CompanyInformationController::cla
 Route::get('/api/showroomgallery', ShowroomGalleryController::class);
 Route::get('/api/franchise', [FranchiseInfoController::class, 'show']);
 Route::get('/api/testimonials', FranchiseTestimonialController::class);
+Route::get('/api/franchise/brochure', [FranchiseInfoController::class, 'downloadBrochure']);
+Route::get('/franchise-info/brochure/download', [FranchiseInfoController::class, 'serveBrochure']);
+Route::get('/api/categories', [CategoryController::class, 'index']);
+Route::get('/api/categories/{id}', [CategoryController::class, 'show']);
+Route::get('/api/products', [ProductController::class, 'index']);
+Route::get('/api/products/{id}', [ProductController::class, 'show']);
+Route::get('/api/testimonials', [CustomerTestimonialController::class, 'index']);
+Route::get('/api/testimonials/{id}', [CustomerTestimonialController::class, 'show']);
+Route::get('/api/faqs', [FaqController::class, 'index']);
+Route::get('/api/faqs/{id}', [FaqController::class, 'show']);
+Route::get('/api/benefits', [BenefitController::class, 'index']);
+Route::get('/api/benefits/{id}', [BenefitController::class, 'show']);
+Route::get('/api/benefits/category/{category_id}', [BenefitController::class, 'index']);
 
 
 Route::get('/api/blog', [BlogController::class, 'index']);
