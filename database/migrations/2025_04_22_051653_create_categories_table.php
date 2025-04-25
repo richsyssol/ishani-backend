@@ -15,6 +15,11 @@ return new class extends Migration
     $table->id();
     $table->string('name');
     $table->string('icon')->nullable();
+    $table->text('description')->nullable();
+    $table->string('product_descriptor', 30);
+    $table->json('benefits')->nullable();
+    $table->boolean('use_default_benefits')->default(true);
+    $table->string('collection_text_template', 255);
     $table->timestamps();
 });
     }

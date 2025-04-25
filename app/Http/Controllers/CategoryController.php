@@ -13,32 +13,24 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::select('id', 'name', 'icon')->get();
+        $categories = Category::withCount('products')->get()->map(function($category) {
+            return [
+                'id' => $category->id,
+                'name' => $category->name,
+                'icon' => $category->icon,
+                'description' => $category->description,
+                'product_descriptor' => $category->product_descriptor,
+                'benefits' => $category->effectiveBenefits,
+                'products_count' => $category->products_count,
+                'created_at' => $category->created_at,
+                'updated_at' => $category->updated_at
+            ];
+        });
+
         return response()->json([
             'success' => true,
             'data' => $categories
         ]);
     }
 
-    /**
-     * Display the specified category.
-     */
-    public function show($id)
-    {
-        $category = Category::with(['products' => function($query) {
-            $query->select('id', 'category_id', 'title', 'image', 'price');
-        }])->find($id);
-
-        if (!$category) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Category not found'
-            ], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'data' => $category
-        ]);
     }
-}

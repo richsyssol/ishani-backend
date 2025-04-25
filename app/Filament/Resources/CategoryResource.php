@@ -24,6 +24,39 @@ class CategoryResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('icon')
                     ->maxLength(255),
+
+                Forms\Components\Textarea::make('description')
+                    ->required()
+                    ->default('Premium quality products for Indian homes'),
+
+                // Hidden field for collection text template
+                Forms\Components\Hidden::make('collection_text_template')
+                    ->default('Browse our {category} collection - {count} {descriptor} products available')
+                    ->dehydrated(),
+
+                Forms\Components\Repeater::make('benefits')
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(100),
+                        Forms\Components\Textarea::make('description')
+                            ->required()
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(1)
+                    ->columnSpanFull()
+                    ->itemLabel(fn($state) => $state['title'] ?? 'New Benefit')
+                    ->addActionLabel('Add Benefit')
+                    ->defaultItems(0) // Start with empty benefits
+                    ->collapsible()
+                    ->collapsed()
+                    ->reorderable()
+                    ->helperText('Leave empty to use default benefit'),
+
+                Forms\Components\TextInput::make('product_descriptor')
+                    ->required()
+                    ->default('products')
+                    ->maxLength(30)
             ]);
     }
 
@@ -34,17 +67,11 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('icon'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
+                Tables\Columns\TextColumn::make('benefits_count')
+                    ->label('Benefits')
+                    ->getStateUsing(fn($record) => empty($record->benefits)
+                        ? 'Default'
+                        : count($record->benefits))
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -54,13 +81,6 @@ class CategoryResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

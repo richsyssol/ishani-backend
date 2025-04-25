@@ -55,9 +55,7 @@ Route::get('/api/testimonials', [CustomerTestimonialController::class, 'index'])
 Route::get('/api/testimonials/{id}', [CustomerTestimonialController::class, 'show']);
 Route::get('/api/faqs', [FaqController::class, 'index']);
 Route::get('/api/faqs/{id}', [FaqController::class, 'show']);
-Route::get('/api/benefits', [BenefitController::class, 'index']);
-Route::get('/api/benefits/{id}', [BenefitController::class, 'show']);
-Route::get('/api/benefits/category/{category_id}', [BenefitController::class, 'index']);
+
 
 
 Route::get('/api/blog', [BlogController::class, 'index']);

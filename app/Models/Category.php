@@ -15,11 +15,26 @@ class Category extends Model
     protected $fillable = [
         'name',
         'icon',
+        'description',
+        'product_descriptor',
+        'benefits',
+        'collection_text_template'
     ];
+    protected $casts = ['benefits' => 'array'];
 
     /**
      * Get all products for the category.
      */
+
+     public function getEffectiveBenefitsAttribute()
+{
+    // Check if benefits is not null and not empty array
+    if ($this->benefits && count(array_filter($this->benefits))) {
+        return array_map(fn($b) => (object)$b, $this->benefits);
+    }
+    
+    return [DefaultBenefit::getDefault()];
+}
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
@@ -28,8 +43,5 @@ class Category extends Model
     /**
      * Get the icon attribute with proper formatting.
      */
-    public function getFormattedIconAttribute(): string
-    {
-        return $this->icon ? $this->icon . ' ' . $this->name : $this->name;
-    }
+    
 }
