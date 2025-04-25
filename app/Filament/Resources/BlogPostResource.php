@@ -12,18 +12,28 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class BlogPostResource extends Resource
 
-{   protected static ?string $model = BlogPost::class;
+{       
+    protected static ?string $navigationGroup = 'Blog Page';
+    protected static ?string $model = BlogPost::class;
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')->required(),
-                Forms\Components\TextInput::make('slug')->required(),
+                Forms\Components\TextInput::make('title')
+                ->required()
+                ->live(onBlur: true)
+                ->afterStateUpdated(function ($state, $set) {
+                    $set('slug', Str::slug($state));
+                }),               
+                Forms\Components\TextInput::make('slug')
+                ->required()
+                ->unique(ignoreRecord: true),
                 Forms\Components\Textarea::make('excerpt')->required(),
                 Forms\Components\RichEditor::make('content')->required()
                 ->columnSpanFull(),
@@ -64,15 +74,28 @@ class BlogPostResource extends Resource
                     ->image()
                     ->directory('blog')
                     ->preserveFilenames()
+                    ->required()
+                    ->disk('public_uploads')
+                    ->imageEditor()
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('16:9')
+                    ->columnSpanFull(),
+                    Forms\Components\DatePicker::make('published_date')->required(),
+                    Forms\Components\Toggle::make('is_published')
+                    ->default(true)
                     ->required(),
-                Forms\Components\DatePicker::make('published_date')->required(),
                 Forms\Components\TextInput::make('author_name')->required(),
                 Forms\Components\FileUpload::make('author_avatar')
-                    ->label('Author Avatar')
-                    ->image()
-                    ->directory('authors')
-                    ->preserveFilenames()
-                    ->required(),
+                ->label('Author Avatar')
+                ->image()
+                ->directory('authors')
+                ->preserveFilenames()
+                ->required()
+                ->disk('public_uploads')
+                ->imageEditor()
+                ->imageResizeMode('cover')
+                ->imageCropAspectRatio('16:9')
+                ->columnSpanFull(),
                 Forms\Components\TextInput::make('author_role')->required(),
                 Forms\Components\Repeater::make('related_products')
                     ->schema([
@@ -87,10 +110,16 @@ class BlogPostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image_url')->label('Image'),
+                Tables\Columns\ImageColumn::make('image_url')
+                ->label('Image')
+                ->disk('public_uploads')
+                ->url(fn ($record) => asset('uploads/' . $record->image_url)),
                 Tables\Columns\TextColumn::make('title')->searchable(),
                 Tables\Columns\TextColumn::make('category'),
                 Tables\Columns\TextColumn::make('published_date')->date(),
+                Tables\Columns\IconColumn::make('is_published')
+                ->boolean()
+                ->sortable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('category')

@@ -11,12 +11,31 @@ class BlogPost extends Model
 
     protected $fillable = [
         'title', 'slug', 'excerpt', 'content', 'category', 
-        'image_url', 'published_date', 'author_name',
-        'author_avatar', 'author_role', 'related_products'
+        'image_url', 'published_date', 'is_published',
+        'author_name', 'author_avatar', 'author_role',
+        'related_products', 'views'
     ];
 
     protected $casts = [
-        'published_date' => 'date',
+        'published_date' => 'datetime',
+        'is_published' => 'boolean',
         'related_products' => 'array'
     ];
+
+    protected $attributes = [
+        'is_published' => true,
+        'views' => 0
+    ];
+
+   
+    // Return relative paths for URLs
+    public function getImageUrlAttribute($value)
+    {
+        return $value ? $value : null;
+    }
+
+    public function getAuthorAvatarAttribute($value)
+    {
+        return $value ? $value : null;
+    }
 }

@@ -20,11 +20,16 @@ return new class extends Migration
             $table->string('category');
             $table->string('image_url');
             $table->date('published_date');
+            $table->boolean('is_published')->default(true);
             $table->string('author_name');
             $table->string('author_avatar');
             $table->string('author_role');
             $table->json('related_products')->nullable();
             $table->timestamps();
+             // Add indexes for better performance
+            $table->index('is_published');
+            $table->index('published_date');
+            $table->index('category');
         });
     }
 
