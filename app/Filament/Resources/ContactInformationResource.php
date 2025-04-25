@@ -89,6 +89,25 @@ class ContactInformationResource extends Resource
                             ->label('Address Line 5'),
                     ]),
 
+                Forms\Components\Section::make('Social Links')
+                    ->schema([
+                        Forms\Components\TextInput::make('social_link_1')
+                            ->label('Social Link 1')
+                            ->url(),
+                        Forms\Components\TextInput::make('social_link_2')
+                            ->label('Social Link 2')
+                            ->url(),
+                        Forms\Components\TextInput::make('social_link_3')
+                            ->label('Social Link 3')
+                            ->url(),
+                        Forms\Components\TextInput::make('social_link_4')
+                            ->label('Social Link 4')
+                            ->url(),
+                        Forms\Components\TextInput::make('social_link_5')
+                            ->label('Social Link 5')
+                            ->url(),
+                    ])->columns(2),
+
                 Forms\Components\Section::make('Business Hours')
                     ->schema([
                         Textarea::make('open_hours')
@@ -96,6 +115,7 @@ class ContactInformationResource extends Resource
                             ->placeholder('Example: Monday-Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM')
                             ->columnSpanFull()
                     ]),
+
                 Forms\Components\Section::make('Transport Information')
                     ->schema([
                         Textarea::make('by_road')
@@ -115,32 +135,28 @@ class ContactInformationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('tel_number')
+                TextColumn::make('tel_number')
                     ->label('Telephone'),
-                Tables\Columns\TextColumn::make('mobile_number')
+                TextColumn::make('mobile_number')
                     ->label('Mobile'),
-                Tables\Columns\TextColumn::make('email'),
-                // TextColumn::make('how_to_reach_us')
-                //     ->label('Transport Info')
-                //     ->limit(30)
-                //     ->tooltip(function (TextColumn $column): ?string {
-                //         $state = $column->getState();
-                //         return $state;
-                //     }),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('email'),
+                TextColumn::make('whatsapp_number')
+                    ->label('WhatsApp'),
+                TextColumn::make('updated_at')
                     ->dateTime(),
             ])
             ->filters([
                 //
             ])
-            // ->actions([
-            //     Tables\Actions\EditAction::make(),
-            // ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('updated_at', 'desc');
     }
 
     public static function getRelations(): array

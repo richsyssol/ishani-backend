@@ -36,7 +36,14 @@ return new class extends Migration {
             $table->string('outlet_address_line3')->nullable();
             $table->string('outlet_address_line4')->nullable();
             $table->string('outlet_address_line5')->nullable();
-
+            
+            
+            $table->string('social_link_1')->nullable();
+            $table->string('social_link_2')->nullable();
+            $table->string('social_link_3')->nullable();
+            $table->string('social_link_4')->nullable();
+            $table->string('social_link_5')->nullable();
+            
             $table->text('open_hours')->nullable();
 
             $table->text('by_road')->nullable();
